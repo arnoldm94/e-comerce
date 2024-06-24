@@ -12,9 +12,6 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
-      productosID: {
-        type: Sequelize.INTEGER,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -29,5 +26,3 @@ module.exports = {
     await queryInterface.dropTable("Categorias");
   },
 };
-
-sjdbadbsa;
