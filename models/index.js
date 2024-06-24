@@ -49,4 +49,4 @@ db.Sequelize = Sequelize;
 
 module.exports = db;
 
-//esto es un comment
+//lalala
