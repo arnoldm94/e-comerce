@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "",
-    "database": "proyecto1_e_commerce",
+    "database": "Nombre de la Base de Datos",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
