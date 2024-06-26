@@ -1,4 +1,5 @@
 const { Productos } = require("../models/index.js");
+const { Categorias } = require("../models/index.js");
 
 const ProductosController = {
   create(req, res) {
@@ -9,6 +10,39 @@ const ProductosController = {
       )
       .catch((err) => console.error(err));
   },
-};
 
-module.exports = ProductosController;
+  async update(req, res) {
+    await Productos.update(
+      { name: req.body.name, price: req.body.price, CategoriasId: req.body.CategoriasId },
+      { where: { id: req.params.id } }
+    )
+    res.send('Producto actualizado con éxito')
+  }, 
+
+  async delete(req, res) {
+    try {
+      await Productos.destroy({
+        where: { id: req.params.id }
+      })
+      res.send({ message: 'Product has been removed' })
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  getAll(req, res) {
+    
+      Productos.findAll()
+
+      .then((productos)=> res.send(productos))
+      .catch ((err) => {
+      console.log(err);
+      res.status(500).send({
+        message:"error",
+      })
+      })
+  },
+
+}
+
+module.exports = ProductosController
