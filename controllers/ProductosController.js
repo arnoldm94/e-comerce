@@ -2,6 +2,7 @@ const { Productos } = require("../models/index.js");
 const { Categorias } = require("../models/index.js");
 
 const ProductosController = {
+  //crear producto
   create(req, res) {
     req.body.role = "producto";
     Productos.create(req.body)
@@ -11,18 +12,20 @@ const ProductosController = {
       .catch((err) => console.error(err));
   },
 
+  //actualizar producto
   async update(req, res) {
     await Productos.update(
       {
         name: req.body.name,
         price: req.body.price,
-        CategoriasId: req.body.CategoriasId,
+        CategoriaId: req.body.CategoriaId,
       },
       { where: { id: req.params.id } }
     );
     res.send("Producto actualizado con éxito");
   },
 
+  //borrar producto
   async delete(req, res) {
     try {
       await Productos.destroy({
@@ -34,6 +37,7 @@ const ProductosController = {
     }
   },
 
+  //ver todos productos con categoria
   getAll(req, res) {
     Productos.findAll({ include: [Categorias] })
 
