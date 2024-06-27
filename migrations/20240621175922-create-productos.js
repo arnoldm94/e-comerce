@@ -15,7 +15,8 @@ module.exports = {
       price: {
         type: Sequelize.FLOAT,
       },
-      categoriasId: {
+      CategoriaId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
       createdAt: {

@@ -13,36 +13,38 @@ const ProductosController = {
 
   async update(req, res) {
     await Productos.update(
-      { name: req.body.name, price: req.body.price, CategoriasId: req.body.CategoriasId },
+      {
+        name: req.body.name,
+        price: req.body.price,
+        CategoriasId: req.body.CategoriasId,
+      },
       { where: { id: req.params.id } }
-    )
-    res.send('Producto actualizado con éxito')
-  }, 
+    );
+    res.send("Producto actualizado con éxito");
+  },
 
   async delete(req, res) {
     try {
       await Productos.destroy({
-        where: { id: req.params.id }
-      })
-      res.send({ message: 'Product has been removed' })
+        where: { id: req.params.id },
+      });
+      res.send({ message: "Product has been removed" });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   },
 
   getAll(req, res) {
-    
-      Productos.findAll()
+    Productos.findAll({ include: [Categorias] })
 
-      .then((productos)=> res.send(productos))
-      .catch ((err) => {
-      console.log(err);
-      res.status(500).send({
-        message:"error",
-      })
-      })
+      .then((productos) => res.send(productos))
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({
+          message: "error",
+        });
+      });
   },
+};
 
-}
-
-module.exports = ProductosController
+module.exports = ProductosController;
