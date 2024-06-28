@@ -1,6 +1,6 @@
-const { Productos, Sequelize } = require("../models/index.js");
+const { Productos, Sequelize, Pedido } = require("../models/index.js");
 const { Categorias } = require("../models/index.js");
-const { Op } = Sequelize
+const { Op } = Sequelize;
 
 const ProductosController = {
   //crear producto
@@ -11,7 +11,7 @@ const ProductosController = {
         res.status(201).send({ message: "Producto creado con éxito", producto })
       )
       .catch((err) => console.error(err));
-      next(error)
+    next(error);
   },
 
   //actualizar producto
@@ -40,24 +40,39 @@ const ProductosController = {
   },
 
   // ver todos productos con categoria
+
   getAll(req, res) {
-    Productos.findAll({include: [Categorias]})
+    Productos.findAll({ include: [Categorias] })
       .then((productos) => res.send(productos))
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         res.status(500).send({
-            message: 'Ha habido un problema al cargar los productos',
-          })
-      })
+          message: "Ha habido un problema al cargar los productos",
+        });
+      });
+  },
+
+  // ver todos productos con ordenes
+  getAllOrders(req, res) {
+    Productos.findAll({
+      include: [{ model: Pedido, through: { attributes: [] } }],
+    })
+      .then((productos) => res.send(productos))
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({
+          message: "Ha habido un problema al cargar los productos",
+        });
+      });
   },
 
   // ver un producto por su id
   getById(req, res) {
     Productos.findByPk(req.params.id, {
-      include: [{ model: Categorias, attributes: ['name'] }],
-    }).then((post) => res.send(post))
+      include: [{ model: Categorias, attributes: ["name"] }],
+    }).then((post) => res.send(post));
   },
- 
+
   // buscar producto por nombre
   getOneByName(req, res) {
     Productos.findOne({
@@ -67,8 +82,8 @@ const ProductosController = {
         },
       },
       include: [Categorias],
-    }).then((post) => res.send(post))
-  }, 
+    }).then((post) => res.send(post));
+  },
 
   // buscar producto por precio
   getOneByPrice(req, res) {
@@ -78,9 +93,8 @@ const ProductosController = {
           [Op.like]: `${req.params.price}`,
         },
       },
-    }).then((post) => res.send(post))
-  }, 
-
-}
+    }).then((post) => res.send(post));
+  },
+};
 
 module.exports = ProductosController;
