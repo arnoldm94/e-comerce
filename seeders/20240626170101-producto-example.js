@@ -45,6 +45,14 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        id: 5,
+        name: "mesa",
+        price: "35",
+        CategoriasId: "2",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   },
 
