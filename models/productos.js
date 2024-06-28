@@ -12,16 +12,26 @@ module.exports = (sequelize, DataTypes) => {
       Productos.belongsTo(models.Categorias);
     }
   }
-  Productos.init(
-    {
-      name: DataTypes.STRING,
-      price: DataTypes.FLOAT,
-      CategoriasId: DataTypes.INTEGER,
+  Productos.init({
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'Por favor introduce el nombre del producto'},
+      },
     },
-    {
-      sequelize,
-      modelName: "Productos",
-    }
-  );
+    price: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'Por favor introduce un precio'},
+      },
+    },
+    CategoriaId: DataTypes.INTEGER,
+  },
+  {
+    sequelize,
+    modelName: "Productos",
+  })
   return Productos;
-};
+}
