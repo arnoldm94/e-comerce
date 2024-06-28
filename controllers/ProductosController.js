@@ -1,5 +1,6 @@
-const { Productos } = require("../models/index.js");
-const { Categorias } = require("../models/index.js");
+const { Productos, Sequelize } = require("../models/index.js");
+// const { Categorias } = require("../models/index.js");
+const { Op } = Sequelize
 
 const ProductosController = {
   create(req, res) {
@@ -30,18 +31,33 @@ const ProductosController = {
     }
   },
 
-  getAll(req, res) {
-    
-      Productos.findAll()
+  // getAll(req, res) {
+  //   Productos.findAll({include: [Categorias]})
+  //     .then((productos) => res.send(productos))
+  //     .catch((err) => {
+  //       console.log(err)
+  //       res.status(500).send({
+  //           message: 'Ha habido un problema al cargar los productos',
+  //         })
+  //     })
+  // },
 
-      .then((productos)=> res.send(productos))
-      .catch ((err) => {
-      console.log(err);
-      res.status(500).send({
-        message:"error",
-      })
-      })
-  },
+  // getById(req, res) {
+  //   Productos.findByPk(req.params.id, {
+  //     include: [{ model: Categorias, attributes: ['name'] }],
+  //   }).then((post) => res.send(post))
+  // },
+ 
+  getOneByName(req, res) {
+    Productos.findOne({
+      where: {
+        name: {
+          [Op.like]: `%${req.params.name}%`,
+        },
+      },
+      // include: [Categorias],
+    }).then((post) => res.send(post))
+  }, 
 
 }
 
