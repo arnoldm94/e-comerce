@@ -8,7 +8,9 @@ Base de datos para un e-comerce en donde se han implementado diferentes herramie
 
 ## Visuales
 
-Capturas de pantalla, videos o GIFs que demuestran lo que hace el proyecto y cómo usarlo.
+Estas son algunas imagenes de ejemplo de como se ve la base de datos
+![Base de datos con tablas](./img/image.png)
+![Tabla de productos con ejemplos](./img/image-1.png)
 
 ## Empezando 🚀
 
