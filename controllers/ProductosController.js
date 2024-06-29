@@ -3,8 +3,9 @@ const {
   Sequelize,
   Pedido,
   Pedido_Productos,
+  Review,
+  Categorias,
 } = require("../models/index.js");
-const { Categorias } = require("../models/index.js");
 const { Op } = Sequelize;
 
 const ProductosController = {
@@ -16,7 +17,7 @@ const ProductosController = {
         res.status(201).send({ message: "Producto creado con éxito", producto })
       )
       .catch((err) => console.error(err));
-    next(error);
+    /*   next(error); */
   },
 
   //actualizar producto
@@ -44,10 +45,10 @@ const ProductosController = {
     }
   },
 
-  // ver todos productos con categoria
+  // ver todos productos con categoria y reviews
 
   getAll(req, res) {
-    Productos.findAll({ include: [Categorias] })
+    Productos.findAll({ include: [Categorias, Review] })
       .then((productos) => res.send(productos))
       .catch((err) => {
         console.log(err);
@@ -99,6 +100,37 @@ const ProductosController = {
         },
       },
     }).then((post) => res.send(post));
+  },
+
+  // ver todos productos de mayor a menor precio
+  getdescendent(req, res) {
+    Productos.findAll()
+      .then((productos) => {
+        let filtered = [];
+        let descendent = [];
+        productos.forEach((element) => {
+          filtered.push(element.price);
+        });
+        const ordenados = (arreglo) => {
+          return [...arreglo].sort((a, b) => b - a);
+        };
+        let preciosordenados = ordenados(filtered);
+        for (let i = 0; i < filtered.length; i++) {
+          const price = preciosordenados[i];
+          productos.forEach((product) => {
+            if (product.price == price) {
+              descendent.push(product);
+            }
+          });
+        }
+        res.send(descendent);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({
+          message: "Ha habido un problema al cargar los productos",
+        });
+      });
   },
 };
 

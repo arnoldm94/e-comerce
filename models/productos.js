@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       Productos.belongsToMany(models.Pedido, {
         through: models.Pedido_Productos,
       });
+      Productos.hasMany(models.Review);
     }
   }
   Productos.init(

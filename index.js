@@ -7,6 +7,7 @@ app.use(express.json());
 app.use("/categorias", require("./routes/categorias.routes.js"));
 app.use("/productos", require("./routes/productos.routes.js"));
 app.use("/pedidos", require("./routes/pedidos.routes.js"));
+app.use("/review", require("./routes/review.routes.js"));
 
 // app.use(handleValidationError);
 app.use(typeError);
