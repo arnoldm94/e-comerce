@@ -9,6 +9,6 @@ router.get("/", ProductosController.getAll);
 router.get("/id/:id", ProductosController.getById);
 router.get("/name/:name", ProductosController.getOneByName);
 router.get("/price/:price", ProductosController.getOneByPrice);
-router.get("/withorders", ProductosController.getAllOrders);
+router.get("/pedidos", ProductosController.getAllOrders);
 
 module.exports = router;

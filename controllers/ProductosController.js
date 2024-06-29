@@ -1,4 +1,9 @@
-const { Productos, Sequelize, Pedido } = require("../models/index.js");
+const {
+  Productos,
+  Sequelize,
+  Pedido,
+  Pedido_Productos,
+} = require("../models/index.js");
 const { Categorias } = require("../models/index.js");
 const { Op } = Sequelize;
 

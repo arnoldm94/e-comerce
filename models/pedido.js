@@ -14,9 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Pedido.init(
-    {
-      ProductoId: [DataTypes.INTEGER],
-    },
+    {},
     {
       sequelize,
       modelName: "Pedido",

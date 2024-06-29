@@ -1,23 +1,34 @@
-const { Pedidos } = require("../models/index");
+const {
+  Productos,
+  Sequelize,
+  Pedido,
+  Pedido_Productos,
+} = require("../models/index.js");
+const { Categorias } = require("../models/index.js");
+const { Op } = Sequelize;
 
 const PedidosController = {
-  insert(req, res) {
+  create(req, res, next) {
+    req.body.role = "pedido";
     Pedidos.create(req.body)
-      .then((pedido) => {
-        pedido.addProductos(req.body.ProductoId);
-        res.send(pedido);
-      })
+      .then((pedido) =>
+        res.status(201).send({ message: "Pedido creado con éxito", pedido })
+      )
       .catch((err) => console.error(err));
+    next(error);
   },
-  async getAll(req, res) {
-    try {
-      const pedidos = await Pedidos.findAll({
-        include: [{ model: Productos, through: { attributes: [] } }],
+
+  getAll(req, res) {
+    Pedido.findAll({
+      include: [{ model: Productos, through: { attributes: [] } }],
+    })
+      .then((pedidos) => res.send(pedidos))
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({
+          message: "Ha habido un problema al cargar los pedidos",
+        });
       });
-      res.send(pedidos);
-    } catch (error) {
-      console.error(error);
-    }
   },
 };
 

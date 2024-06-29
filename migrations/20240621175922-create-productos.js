@@ -28,10 +28,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      PedidosId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-      },
     });
   },
   async down(queryInterface, Sequelize) {

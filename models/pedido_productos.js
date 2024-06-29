@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   Pedido_Productos.init(
     {
       ProductosId: DataTypes.INTEGER,
-      PedidosId: DataTypes.INTEGER,
+      PedidoId: DataTypes.INTEGER,
     },
     {
       sequelize,

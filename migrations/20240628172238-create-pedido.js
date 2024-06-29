@@ -17,10 +17,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      ProductoId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-      },
     });
   },
   async down(queryInterface, Sequelize) {
