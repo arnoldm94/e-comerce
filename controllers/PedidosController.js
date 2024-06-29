@@ -8,14 +8,11 @@ const { Categorias } = require("../models/index.js");
 const { Op } = Sequelize;
 
 const PedidosController = {
-  create(req, res, next) {
+  create(req, res) {
     req.body.role = "pedido";
-    Pedidos.create(req.body)
-      .then((pedido) =>
-        res.status(201).send({ message: "Pedido creado con éxito", pedido })
-      )
+    Pedido.create()
+      .then(() => res.status(201).send({ message: "Pedido creado con éxito" }))
       .catch((err) => console.error(err));
-    next(error);
   },
 
   getAll(req, res) {
