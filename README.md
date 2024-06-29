@@ -60,12 +60,12 @@ $ sequelize db:seed:all
 
 ## Construido Con 🛠️
 
-- [ MySQL](https://www.ruby-lang.org/es/)
-- [Javascript](https://rubyonrails.org)
-- [DBeaver](https://rubygems.org)
-- [Sequelize](https://www.postgresql.org)
-- [Express](https://bulma.io)
-- [Node.js](https://bulma.io)
+- [ MySQL](https://www.mysql.com/)
+- [Javascript](https://developer.mozilla.org/es/docs/Web/JavaScript)
+- [DBeaver](https://dbeaver.io/)
+- [Sequelize](https://sequelize.org/)
+- [Express](https://expressjs.com/)
+- [Node.js](https://nodejs.org/en)
 
 ## Soporte
 
