@@ -10,28 +10,35 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Productos.belongsTo(models.Categorias);
+
+      Productos.belongsToMany(models.Pedido, {
+        through: models.Pedido_Productos,
+      });
+      Productos.hasMany(models.Review);
     }
   }
-  Productos.init({
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: { msg: 'Por favor introduce el nombre del producto'},
+  Productos.init(
+    {
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: { msg: "Por favor introduce el nombre del producto" },
+        },
       },
-    },
-    price: {
-      type: DataTypes.FLOAT,
-      allowNull: false,
-      validate: {
-        notNull: { msg: 'Por favor introduce un precio'},
+      price: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+        validate: {
+          notNull: { msg: "Por favor introduce un precio" },
+        },
       },
+      CategoriaId: DataTypes.INTEGER,
     },
-    CategoriaId: DataTypes.INTEGER,
-  },
-  {
-    sequelize,
-    modelName: "Productos",
-  })
+    {
+      sequelize,
+      modelName: "Productos",
+    }
+  );
   return Productos;
-}
+};

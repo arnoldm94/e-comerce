@@ -8,7 +8,9 @@ Base de datos para un e-comerce en donde se han implementado diferentes herramie
 
 ## Visuales
 
-Capturas de pantalla, videos o GIFs que demuestran lo que hace el proyecto y cómo usarlo.
+Estas son algunas imagenes de ejemplo de como se ve la base de datos
+![Base de datos con tablas](./img/image.png)
+![Tabla de productos con ejemplos](./img/image-1.png)
 
 ## Empezando 🚀
 
@@ -58,12 +60,12 @@ $ sequelize db:seed:all
 
 ## Construido Con 🛠️
 
-- [ MySQL](https://www.ruby-lang.org/es/)
-- [Javascript](https://rubyonrails.org)
-- [DBeaver](https://rubygems.org)
-- [Sequelize](https://www.postgresql.org)
-- [Express](https://bulma.io)
-- [Node.js](https://bulma.io)
+- [ MySQL](https://www.mysql.com/)
+- [Javascript](https://developer.mozilla.org/es/docs/Web/JavaScript)
+- [DBeaver](https://dbeaver.io/)
+- [Sequelize](https://sequelize.org/)
+- [Express](https://expressjs.com/)
+- [Node.js](https://nodejs.org/en)
 
 ## Soporte
 

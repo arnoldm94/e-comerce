@@ -1,6 +1,12 @@
-const { Productos, Sequelize } = require("../models/index.js");
-const { Categorias } = require("../models/index.js");
-const { Op } = Sequelize
+const {
+  Productos,
+  Sequelize,
+  Pedido,
+  Pedido_Productos,
+  Review,
+  Categorias,
+} = require("../models/index.js");
+const { Op } = Sequelize;
 
 const ProductosController = {
   //crear producto
@@ -19,7 +25,7 @@ const ProductosController = {
       res.status(201).send({ message: "Producto creado con éxito", producto })
     } catch (error) {
       console.error(error)
-      next(error)
+    /*   next(error); */
     }
   },
  
@@ -49,16 +55,31 @@ const ProductosController = {
     }
   },
 
-  // ver todos productos con categoria
+  // ver todos productos con categoria y reviews
+
   getAll(req, res) {
-    Productos.findAll({include: [Categorias]})
+    Productos.findAll({ include: [Categorias, Review] })
       .then((productos) => res.send(productos))
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         res.status(500).send({
-            message: 'Ha habido un problema al cargar los productos',
-          })
-      })
+          message: "Ha habido un problema al cargar los productos",
+        });
+      });
+  },
+
+  // ver todos productos con ordenes
+  getAllOrders(req, res) {
+    Productos.findAll({
+      include: [{ model: Pedido, through: { attributes: [] } }],
+    })
+      .then((productos) => res.send(productos))
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({
+          message: "Ha habido un problema al cargar los productos",
+        });
+      });
   },
 
   // ver un producto por su id
@@ -67,7 +88,7 @@ const ProductosController = {
       include: [{ model: Categorias, attributes: ['name'] }],
     }).then((producto) => res.send(producto))
   },
- 
+
   // buscar producto por nombre
   getOneByName(req, res) {
     Productos.findOne({
@@ -88,18 +109,39 @@ const ProductosController = {
           [Op.like]: `${req.params.price}`,
         },
       },
-    }).then((producto) => res.send(producto))
-  }, 
+    }).then((productos) => res.send(post));
+  },
 
-  // getProductsSortedByPrice(req, res) {
-  //   Productos.find().sort({ price: -1 })
-  //       .then(products => {
-  //           res.json(products);
-  //       })
-  //       .catch(err => {
-  //           res.status(500).json({ message: err.message });
-  //       });
-  // },
-}
+  // ver todos productos de mayor a menor precio
+  getdescendent(req, res) {
+    Productos.findAll()
+      .then((productos) => {
+        let filtered = [];
+        let descendent = [];
+        productos.forEach((element) => {
+          filtered.push(element.price);
+        });
+        const ordenados = (arreglo) => {
+          return [...arreglo].sort((a, b) => b - a);
+        };
+        let preciosordenados = ordenados(filtered);
+        for (let i = 0; i < filtered.length; i++) {
+          const price = preciosordenados[i];
+          productos.forEach((product) => {
+            if (product.price == price) {
+              descendent.push(product);
+            }
+          });
+        }
+        res.send(descendent);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({
+          message: "Ha habido un problema al cargar los productos",
+        });
+      });
+  },
+};
 
 module.exports = ProductosController;
