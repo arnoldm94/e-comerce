@@ -109,7 +109,7 @@ const ProductosController = {
           [Op.like]: `${req.params.price}`,
         },
       },
-    }).then((productos) => res.send(post));
+    }).then((productos) => res.send(productos));
   },
 
   // ver todos productos de mayor a menor precio
