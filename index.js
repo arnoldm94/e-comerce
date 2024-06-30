@@ -12,4 +12,4 @@ app.use("/user", require("./routes/user.routes.js"));
 
 // app.use(typeError);
 
-app.listen(PORT, () => console.log("servidor levantado en el puerto" + PORT));
+app.listen(PORT, () => console.log("servidor levantado en el puerto " + PORT));

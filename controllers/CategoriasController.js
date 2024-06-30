@@ -1,10 +1,21 @@
-const { Categorias } = require("../models/index");
-const { Productos } = require("../models/index");
+const {
+  Productos,
+  Sequelize,
+  Pedido,
+  Pedido_Productos,
+  Review,
+  Categorias,
+  User,
+  Token,
+} = require("../models/index.js");
+const categoria = require("../models/categorias.js");
+
+const { Op } = Sequelize;
 
 const CategoriasController = {
   //Crear categoria
   create(req, res) {
-    Categorias.create(req.body)
+    Categorias.create({ ...req.body, UserId: req.user.id })
       .then((categorias) =>
         res.status(201).send({ message: "categoria creada", categorias })
       )

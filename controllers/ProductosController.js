@@ -5,30 +5,33 @@ const {
   Pedido_Productos,
   Review,
   Categorias,
+  User,
+  Token,
 } = require("../models/index.js");
 const { Op } = Sequelize;
 
 const ProductosController = {
-  //crear producto
-  // create(req, res, next) {
-  //   req.body.role = "producto";
-  //   Productos.create(req.body)
-  //     .then((producto) =>
-  //       res.status(201).send({ message: "Producto creado con éxito", producto })
-  //     )
-  //     .catch((err) => console.error(err))
-  // },
-  async create(req, res, next) {
+  create(req, res) {
+    Productos.create({ ...req.body, UserId: req.user.id })
+      .then((producto) =>
+        res.status(201).send({
+          message: "Producto creado con éxito",
+          producto,
+        })
+      )
+      .catch(console.error);
+  },
+
+  /*   async create(req, res, next) {
     try {
       req.body.role = 'producto'
       const Productos = await Productos.create({ ...req.body })
       res.status(201).send({ message: "Producto creado con éxito", producto })
     } catch (error) {
       console.error(error)
-    /*   next(error); */
+      next(error); 
     }
-  },
- 
+  } */
 
   //actualizar producto
   async update(req, res) {
@@ -85,8 +88,8 @@ const ProductosController = {
   // ver un producto por su id
   getById(req, res) {
     Productos.findByPk(req.params.id, {
-      include: [{ model: Categorias, attributes: ['name'] }],
-    }).then((producto) => res.send(producto))
+      include: [{ model: Categorias, attributes: ["name"] }],
+    }).then((producto) => res.send(producto));
   },
 
   // buscar producto por nombre
@@ -98,8 +101,8 @@ const ProductosController = {
         },
       },
       include: [Categorias],
-    }).then((producto) => res.send(producto))
-  }, 
+    }).then((producto) => res.send(producto));
+  },
 
   // buscar producto por precio
   getOneByPrice(req, res) {

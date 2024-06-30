@@ -4,7 +4,8 @@
     "password": "",
     "database": "Nombre de la Base de Datos",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "jwt_secret": "el secreto que usa jwt como firma"
   },
   "test": {
     "username": "root",

@@ -5,6 +5,8 @@ const {
   Pedido_Productos,
   Review,
   Categorias,
+  User,
+  Token,
 } = require("../models/index.js");
 const review = require("../models/review.js");
 
@@ -12,14 +14,24 @@ const { Op } = Sequelize;
 
 const ReviewController = {
   //crear Review
-  create(req, res) {
+  /*   create(req, res) {
     req.body.role = "review";
     Review.create(req.body)
       .then((review) =>
         res.status(201).send({ message: "Review creado con éxito", review })
       )
       .catch((err) => console.error(err));
-    /* next(error); */
+     next(error); 
+  }, */
+  create(req, res) {
+    Review.create({ ...req.body, UserId: req.user.id })
+      .then((review) =>
+        res.status(201).send({
+          message: "Review creado con éxito",
+          review,
+        })
+      )
+      .catch(console.error);
   },
 
   //actualizar review
