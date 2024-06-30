@@ -9,6 +9,7 @@ router.get('/', ProductosController.getAll);
 router.get('/id/:id', ProductosController.getById);
 router.get('/name/:name', ProductosController.getOneByName);
 router.get('/price/:price', ProductosController.getOneByPrice);
+// router.get('/SortedByPrice', ProductosController.getProductsSortedByPrice);
 
 
 module.exports = router;

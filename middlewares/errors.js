@@ -8,16 +8,17 @@
 //     }
 // }   
 
-const typeError = (err, req, res, next) => {
-    if (
-      err.name === 'SequelizeValidationError' ||
-      err.name === 'SequelizeUniqueConstraintError'
-    ) {
-      handleValidationError(err, res)
-    } else {
-      res.status(500).send({ msg: 'Hubo un problema', err })
-    }
-}
+// const typeError = (err, req, res, next) => {
+//     if (
+//       err.name === 'SequelizeValidationError' ||
+//       err.name === 'SequelizeUniqueConstraintError'
+//     ) {
+//       return (err = handleValidationError(err, res))
+//     } else {
+//       res.status(500).send({ msg: 'Hubo un problema', err })
+//     }
+// }
+   
 
-module.exports = { typeError }
+// module.exports = { typeError }
    

@@ -4,15 +4,25 @@ const { Op } = Sequelize
 
 const ProductosController = {
   //crear producto
-  create(req, res, next) {
-    req.body.role = "producto";
-    Productos.create(req.body)
-      .then((producto) =>
-        res.status(201).send({ message: "Producto creado con éxito", producto })
-      )
-      .catch((err) => console.error(err));
+  // create(req, res, next) {
+  //   req.body.role = "producto";
+  //   Productos.create(req.body)
+  //     .then((producto) =>
+  //       res.status(201).send({ message: "Producto creado con éxito", producto })
+  //     )
+  //     .catch((err) => console.error(err))
+  // },
+  async create(req, res, next) {
+    try {
+      req.body.role = 'producto'
+      const Productos = await Productos.create({ ...req.body })
+      res.status(201).send({ message: "Producto creado con éxito", producto })
+    } catch (error) {
+      console.error(error)
       next(error)
+    }
   },
+ 
 
   //actualizar producto
   async update(req, res) {
@@ -55,7 +65,7 @@ const ProductosController = {
   getById(req, res) {
     Productos.findByPk(req.params.id, {
       include: [{ model: Categorias, attributes: ['name'] }],
-    }).then((post) => res.send(post))
+    }).then((producto) => res.send(producto))
   },
  
   // buscar producto por nombre
@@ -67,7 +77,7 @@ const ProductosController = {
         },
       },
       include: [Categorias],
-    }).then((post) => res.send(post))
+    }).then((producto) => res.send(producto))
   }, 
 
   // buscar producto por precio
@@ -78,9 +88,18 @@ const ProductosController = {
           [Op.like]: `${req.params.price}`,
         },
       },
-    }).then((post) => res.send(post))
+    }).then((producto) => res.send(producto))
   }, 
 
+  // getProductsSortedByPrice(req, res) {
+  //   Productos.find().sort({ price: -1 })
+  //       .then(products => {
+  //           res.json(products);
+  //       })
+  //       .catch(err => {
+  //           res.status(500).json({ message: err.message });
+  //       });
+  // },
 }
 
 module.exports = ProductosController;
