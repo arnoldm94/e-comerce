@@ -13,14 +13,14 @@ const { Op } = Sequelize;
 //crear producto
 const ProductosController = {
   create(req, res, next) {
-    Productos.create({ ...req.body})
+    Productos.create({ ...req.body, UserId: req.user.id})
       .then((producto) =>
         res.status(201).send({
           message: "Producto creado con éxito",
           producto,
         })
       )
-      .catch(console.error, next(error));
+      .catch(console.error);
   },
 
   /*   async create(req, res, next) {

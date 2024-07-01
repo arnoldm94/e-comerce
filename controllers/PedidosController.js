@@ -11,7 +11,7 @@ const PedidosController = {
   //crear pedido
   create(req, res) {
     req.body.role = "pedido";
-    Pedido.create()
+    Pedido.create({...req.body, UserId: req.user.id})
       .then(() => res.status(201).send({ message: "Pedido creado con éxito" }))
       .catch((err) => console.error(err));
   },
@@ -28,6 +28,17 @@ const PedidosController = {
           message: "Ha habido un problema al cargar los pedidos",
         });
       });
+  },
+
+  //actualizar producto
+  async update(req, res) {
+    await Pedido.update(
+      {
+        UserId: DataTypes.INTEGER
+      },
+      { where: { id: req.params.id } }
+    );
+    res.send("Pedido actualizado con éxito");
   },
 };
 
