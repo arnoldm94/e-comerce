@@ -11,5 +11,6 @@ router.get("/id/:id", UserController.getById);
 router.get("/name/:name", UserController.getOneByName);
 router.post("/login", UserController.login);
 router.delete("/logout", authentication, UserController.logout);
+router.get("/userpedidos", authentication, UserController.getUsersPedidos);
 
 module.exports = router;

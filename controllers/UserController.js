@@ -10,7 +10,8 @@ const {
 } = require("../models/index.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { jwt_secret } = require("../config/config.json")["development"];
+const { where } = require("sequelize");
+const { jwt_secret } = require("../config/config.json")['development'];
 
 const { Op } = Sequelize;
 
@@ -127,6 +128,18 @@ const UserController = {
         .status(500)
         .send({ message: "hubo un problema al tratar de desconectarte" });
     }
+  },
+
+  //traer user junto a pedidos/productos
+  getUsersPedidos(req, res) {
+    User.findByPk(req.user.id,{ include: [{model: Pedido, include: [Productos]}] })
+      .then((user) => res.send(user))
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send({
+          message: "Ha habido un problema al cargar los Users",
+        });
+      });
   },
 };
 

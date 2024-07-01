@@ -70,7 +70,7 @@ const CategoriasController = {
       });
   },
 
-  //Borarr categoria
+  //Borrar categoria
   async delete(req, res) {
     await Categorias.destroy({
       where: {

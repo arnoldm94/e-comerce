@@ -1,3 +1,5 @@
+// const { Productos, Token, Sequelize } = require("../models");
+
 // const handleValidationError = (err, res) => {
 //     let errors = err.errors.map((el) => el.message)
 //     if (errors.length > 1) {
@@ -18,7 +20,6 @@
 //       res.status(500).send({ msg: 'Hubo un problema', err })
 //     }
 // }
-   
 
 // module.exports = { typeError }
    

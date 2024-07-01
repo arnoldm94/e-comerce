@@ -10,9 +10,10 @@ const {
 } = require("../models/index.js");
 const { Op } = Sequelize;
 
+//crear producto
 const ProductosController = {
-  create(req, res) {
-    Productos.create({ ...req.body, UserId: req.user.id })
+  create(req, res, next) {
+    Productos.create({ ...req.body, UserId: req.user.id})
       .then((producto) =>
         res.status(201).send({
           message: "Producto creado con éxito",
@@ -59,7 +60,6 @@ const ProductosController = {
   },
 
   // ver todos productos con categoria y reviews
-
   getAll(req, res) {
     Productos.findAll({ include: [Categorias, Review] })
       .then((productos) => res.send(productos))
