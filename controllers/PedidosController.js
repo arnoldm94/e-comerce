@@ -3,15 +3,21 @@ const {
   Sequelize,
   Pedido,
   Pedido_Productos,
+  Review,
+  Categorias,
+  User,
+  Token,
 } = require("../models/index.js");
-const { Categorias } = require("../models/index.js");
+
 const { Op } = Sequelize;
 
 const PedidosController = {
   create(req, res) {
     req.body.role = "pedido";
-    Pedido.create()
-      .then(() => res.status(201).send({ message: "Pedido creado con éxito" }))
+    Pedido.create({ ...req.body, UserId: req.user.id })
+      .then((pedido) => {
+        res.status(201).send({ message: "Pedido creado con éxito", pedido });
+      })
       .catch((err) => console.error(err));
   },
 
