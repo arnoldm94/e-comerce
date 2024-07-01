@@ -10,16 +10,17 @@ const {
 } = require("../models/index.js");
 const { Op } = Sequelize;
 
+//crear producto
 const ProductosController = {
-  create(req, res) {
-    Productos.create({ ...req.body, UserId: req.user.id })
+  create(req, res, next) {
+    Productos.create({ ...req.body})
       .then((producto) =>
         res.status(201).send({
           message: "Producto creado con éxito",
           producto,
         })
       )
-      .catch(console.error);
+      .catch(console.error, next(error));
   },
 
   /*   async create(req, res, next) {
@@ -59,7 +60,6 @@ const ProductosController = {
   },
 
   // ver todos productos con categoria y reviews
-
   getAll(req, res) {
     Productos.findAll({ include: [Categorias, Review] })
       .then((productos) => res.send(productos))

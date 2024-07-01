@@ -59,7 +59,7 @@ const ReviewController = {
     }
   },
 
-  // ver todos Review
+  //ver todos Review
   getAll(req, res) {
     Review.findAll({ include: [Productos] })
       .then((review) => res.send(review))

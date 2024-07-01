@@ -8,6 +8,7 @@ const { Categorias } = require("../models/index.js");
 const { Op } = Sequelize;
 
 const PedidosController = {
+  //crear pedido
   create(req, res) {
     req.body.role = "pedido";
     Pedido.create()
@@ -15,6 +16,7 @@ const PedidosController = {
       .catch((err) => console.error(err));
   },
 
+  //traer todos los pedidos
   getAll(req, res) {
     Pedido.findAll({
       include: [{ model: Productos, through: { attributes: [] } }],
