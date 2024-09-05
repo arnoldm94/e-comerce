@@ -65,15 +65,19 @@ const UserController = {
       });
   },
 
-  //get by id
-  getById(req, res) {
-    User.findByPk(req.params.id, {
-      include: [
-        { model: Review, attributes: ["comment"] },
-        { model: Productos, attributes: ["name"] },
-        { model: Pedido, attributes: [] },
-      ],
-    }).then((producto) => res.send(producto));
+  // get by id
+  async getById(req, res) {
+    const userId = parseInt(req.user.id);
+    try {
+      const user = await User.findByPk(userId);
+      if (!user) {
+        return res.status(404).json({ message: 'Usuario no encontrado' })
+      }
+      res.json({ user })
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ message: 'Error mostrando usuario' })
+    }
   },
 
   // buscar User por nombre
